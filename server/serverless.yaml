@@ -1,0 +1,37 @@
+service: nest-react-vite-serverless-api
+
+frameworkVersion: '3'
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-central-1
+  architecture: x86_64
+  endpointType: REGIONAL
+  stage: development
+
+functions:
+  api:
+    handler: dist/lambda.handler
+    memorySize: 512
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+            allowCredentials: false
