@@ -4,6 +4,8 @@
 
 .env
 
+.serverless
+
 client-dist
 
 # Logs
